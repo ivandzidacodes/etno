@@ -1,0 +1,95 @@
+﻿@model EtnoSelo.App.Models.RezervacijaIzvjestajModel
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Rezervacije Izvjestaj</div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            <div class="form-inline">
+                <div class="form-group col-md-4">
+                    <label class="control-label col-md-4">Datum Od</label>
+                    @if (ViewBag.Izvjestaj)
+                    {
+                        <label class="control-label col-md-4">@(": " + Model.DatumOd)</label>
+                    }
+                    <div class="col-md-8">
+                        @Html.EditorFor(x => x.DatumOd, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(x => x.DatumOd, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label col-md-4">Datum Do</label>
+                    @if (ViewBag.Izvjestaj)
+                    {
+                        <label class="control-label col-md-4">@(": " + Model.DatumDo)</label>
+                    }
+                    <div class="col-md-8">
+                        @Html.EditorFor(x => x.DatumDo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(x => x.DatumDo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <input type="hidden" id="izvjestaj" name="izvjestaj" value="false" />
+                <input type="button" value="Filtriraj" class="col-md-2 btn btn-default" onclick="eksportujUPdf('false')" />
+                <input type="button" value="Eksportuj u PDF" class="col-md-2 btn btn-default" onclick="eksportujUPdf('true')" style="margin-left:10px;width: 125px;" />
+            </div>
+        }
+        <br /><br /><br />
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rezervacije.FirstOrDefault().DatumDolaska)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rezervacije.FirstOrDefault().DatumOdlaska)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rezervacije.FirstOrDefault().BrojOsoba)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rezervacije.FirstOrDefault().Potvrdjena)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rezervacije.FirstOrDefault().Ocjena)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rezervacije.FirstOrDefault().Popust)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rezervacije.FirstOrDefault().Korisnik)
+                </th>
+            </tr>
+
+            @foreach (var item in Model.Rezervacije)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DatumDolaska)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DatumOdlaska)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BrojOsoba)
+                    </td>
+                    <td>
+                        @if (ViewBag.Izvjestaj)
+                        {
+                            @(item.Potvrdjena ? "Da" : "Ne")
+                        }
+                        @Html.DisplayFor(modelItem => item.Potvrdjena)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ocjena)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Popust)%
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Korisnik)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

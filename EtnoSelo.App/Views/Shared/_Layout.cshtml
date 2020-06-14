@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Etno Selo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+
+                @if (!string.IsNullOrWhiteSpace(HttpContext.Current.User?.Identity?.Name))
+                {
+                    <ul class="nav navbar-nav">
+                        @if (HttpContext.Current.User.IsInRole("Menadzer"))
+                        {
+                            <li>@Html.ActionLink("Klijenti", "Index", "PregledKlijenata")</li>
+                            <li>@Html.ActionLink("Ponude", "Index", "Ponude")</li>
+                            <li class="dropdown">
+                                <a href="#" role="button" data-toggle="dropdown">Izvjestaji</a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Jedinice", "Jedinice", "Izvjestaji")</li>
+                                    <li>@Html.ActionLink("Ponude", "Ponude", "Izvjestaji")</li>
+                                    <li>@Html.ActionLink("Rezervacije", "Rezervacije", "Izvjestaji")</li>
+                                    <li>@Html.ActionLink("Usluge", "Usluge", "Izvjestaji")</li>
+                                </ul>
+                            </li>
+                        }
+                        @if (HttpContext.Current.User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Korisnici", "Index", "Korisnici")</li>
+                                <li>@Html.ActionLink("Gradovi", "Index", "Gradovi")</li>
+                                <li>@Html.ActionLink("Države", "Index", "Drzave")</li>
+                                <li class="dropdown">
+                                    <a href="#" role="button" data-toggle="dropdown">Izvjestaji</a>
+                                    <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink("Novi korisnici", "NoviKorisnici", "Izvjestaji")</li>
+
+                                    </ul>
+                                </li>
+                        }
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                    @*<ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Odjava", "Odjava", "Login")</li>
+                    </ul>*@
+                }
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <br /><br />
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Etno Selo</p>
+        </footer>
+    </div>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+            //$.validator.addMethod("anyDate",
+            //    function (value, element) {
+            //        return value.match(/^(0?[1-9]|[12][0-9]|3[0-1])[/., -](0?[1-9]|1[0-2])[/., -](19|20)?\d{2}$/);
+            //    },
+            //    "Datum nije validan!"
+            //);
+
+            $.validator.addMethod(
+            "date",
+            function (value, element) {
+                var s = value;
+                s = value.replace(/\./g, '/');
+
+                // Chrome requires tolocaledatestring conversion, otherwise just use the slashed format
+                var d = new Date();
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(d.toLocaleDateString(value))) || !/Invalid|NaN/.test(new Date(s));
+            },
+            "Neispravan datum i/ili format!"
+            );
+    </script>
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

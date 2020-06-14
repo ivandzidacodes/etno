@@ -1,0 +1,41 @@
+﻿@model IEnumerable<EtnoSelo.App.Models.PonudaJedinicaModel>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TipStanbeneJedinice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StanbenaJedinica)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CijenaBezPopusta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CijenaSaPopustom)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipStanbeneJedinice)
+            @Html.DisplayFor(modelItem => item.TipoviStanbenihJedinica.FirstOrDefault(x => x.Value == item.TipStanbeneJedinice.ToString()).Text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StanbeneJedinice.FirstOrDefault(x=>x.Id == item.StanbenaJedinica).Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CijenaBezPopusta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CijenaSaPopustom)
+        </td>
+    </tr>
+}
+
+</table>

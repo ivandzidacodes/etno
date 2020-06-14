@@ -1,0 +1,44 @@
+﻿@model EtnoSelo.App.Models.GradoviDodajVM
+@{
+    ViewBag.Title = "Dodaj";
+}
+
+<h2>Dodaj</h2>
+
+@using (Html.BeginForm("Dodaj"))
+{
+    @Html.HiddenFor(x => x.DrzavaId)
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.grad.Naziv)
+                @Html.TextBoxFor(x => x.grad.Naziv, new { @class = "form-control", placeholder = "Naziv grada" })
+                @Html.ValidationMessageFor(x => x.grad.Naziv)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x=>x.grad.Drzava)
+                @Html.DropDownListFor(x => x.grad.DrzavaId, Model.listaDrzava, new { @class = "form-control" })
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <input type="submit" value="Snimi" class="btn btn-success" />
+
+            @Html.ActionLink("Odustani", "Index", null, new { @class = "btn btn-danger", style = "margin-left:40px" })
+        </div>
+
+
+    </div>
+
+}
+
+

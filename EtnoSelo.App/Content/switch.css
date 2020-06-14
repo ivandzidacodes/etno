@@ -1,0 +1,131 @@
+﻿/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 70px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:after{
+    position:absolute;
+    content:"NE";
+    font-size:1.2em;
+    color:#fff;
+    top:50%;
+    left:0;
+    width:100%;
+    text-align:center;
+    padding-left:20px;
+    line-height:1em;
+    margin-top:-0.5em;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 15px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + input + .slider {
+  background-color: #2c3e50;
+}
+
+input:checked + input + .slider:after {
+    content:"DA";
+    padding:0;
+    padding-right:20px;
+}
+
+input:focus + input + .slider {
+  box-shadow: 0 0 1px #2c3e50;
+}
+
+input:checked + input + .slider:before {
+  -webkit-transform: translateX(46px);
+  -ms-transform: translateX(46px);
+  transform: translateX(46px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.rounded {
+  border-radius: 4px;
+}
+
+.slider.rounded:before {
+  border-radius: 4px;
+}
+
+/**************************************/
+
+.check-box{
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  overflow:hidden;
+}
+
+.check-sign {
+  position: absolute;
+  font-family: 'Glyphicons Halflings';
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  border:2px solid #dce4ec;
+  border-radius:4px;
+  color:#fff;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.check-sign:before{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width:100%;
+  height:100%;
+  text-align:center;
+  font-size:22px;
+  background-color:#fff;
+  color:#567;
+  content:"";
+}
+
+input:checked + input + .check-sign:before {
+  content:"\e013";
+}
+
+input:focus + input + .check-sign {
+  border-color:#2c3e50;
+}

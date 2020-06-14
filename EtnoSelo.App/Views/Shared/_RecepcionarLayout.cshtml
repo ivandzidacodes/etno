@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700|Roboto:300,400,400i,500,500i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/alternative")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+</head>
+<body>
+    @Html.Partial("_TopBar")
+    @Html.Partial("_Sidebar")
+    <div class="container-fluid body-content">
+        <br />
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Etno Selo</p>
+        </footer>
+    </div>
+    <div class="loader"></div>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+        var $loader = $(".loader");
+        $(document).ajaxStart(function () {
+            $loader.css("display", "block").addClass("show");
+            $loader.show(1000);
+        }).ajaxComplete(function () {
+            $loader.removeClass("show");
+        });
+            //$.validator.addMethod("anyDate",
+            //    function (value, element) {
+            //        return value.match(/^(0?[1-9]|[12][0-9]|3[0-1])[/., -](0?[1-9]|1[0-2])[/., -](19|20)?\d{2}$/);
+            //    },
+            //    "Datum nije validan!"
+            //);
+
+            $.validator.addMethod(
+            "date",
+            function (value, element) {
+                var s = value;
+                s = value.replace(/\./g, '/');
+
+                // Chrome requires tolocaledatestring conversion, otherwise just use the slashed format
+                var d = new Date();
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(d.toLocaleDateString(value))) || !/Invalid|NaN/.test(new Date(s));
+            },
+            "Neispravan datum i/ili format!"
+            );
+    </script>
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

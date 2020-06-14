@@ -1,0 +1,100 @@
+﻿@model EtnoSelo.App.Models.RezervcijaIndexVM
+@using System.Globalization;
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Rezervacije</h2>
+<hr />
+
+<div class="form-group">
+    <a href="@Url.Action("Kreiraj")" class="btn btn-info btn-sm">Kreiraj rezervaciju</a>
+</div>
+
+<ul class="item-group">
+    @foreach (var stavka in Model.Rezervacije)
+    {
+        <li class="item-group-element" onclick="OtvoriRezervaciju(@stavka.Id)">
+            <div class="row">
+                <div class="col-sm-3">
+                    @Html.DisplayFor(x => stavka.NosiocRezrvacijie.Ime)&nbsp;@Html.DisplayFor(x => stavka.NosiocRezrvacijie.Prezime)
+                    <div class="sub-text">nosioc rezervacije</div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <span>@Html.DisplayFor(x => stavka.BrojNocenja) noćenje(a)</span>
+                            <div class="sub-text">
+                                od 
+                                <span class="highlight">@String.Format("{0}", stavka.DatumDolaska.ToString("dd.MM.yyyy", new CultureInfo("bs-Latn-BA")))</span> 
+                                do 
+                                <span class="highlight">@String.Format("{0}", stavka.DatumOdlaska.ToString("dd.MM.yyyy", new CultureInfo("bs-Latn-BA")))</span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-3">
+                    @Html.DisplayFor(x => stavka.Jedinica.Naziv)
+                    <div class="sub-text">
+                        u objektu <span class="highlight">@Html.DisplayFor(x => stavka.Jedinica.Objekt.Naziv)</span>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    @(stavka.Potvrdjena ? "Potvrdio rezervaciju" : "Nije potvrdio rezervaciju")
+                    <div class="sub-text">
+                        @if (!stavka.Potvrdjena)
+                        {
+                            <span>mora potvrditi do </span> 
+                            <span class="highlight">@String.Format("{0}", stavka.DatumPotvrdjivanja.ToString("dd.MM.yyyy", new CultureInfo("bs-Latn-BA")))</span>
+                        }
+                        else
+                        {
+                            <span>Uspješno ispunio obavezu!</span>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
+</ul>
+
+    @*</tbody>
+</table>*@
+<div id="modal-container">
+    @*@Html.Partial("_RezervacijaEditModal", new EtnoSelo.App.Models.RezervacijaIzmjeniVM())*@
+</div>
+@section scripts
+{
+    <script>
+        //moment.locale('hr');
+
+        function OtvoriRezervaciju(id) {
+            var $container = $("#modal-container");
+            $.ajax({
+                url: "@Url.Action("Izmjeni", "Rezervacije")/" + id,
+                method: "GET",
+                //data: '{"id":' + id + '}',
+                //contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (data, textStatus, jqXHR) {
+                    console.log("Uspješno dobavljeni podaci!!");
+                    $container.html(data);
+                    $container.find("#modal-rezervacija").modal("show");
+
+                    $container.find("#DatumDolaska, #DatumOdlaska, #DatumPotvrdjivanja")
+                    .datetimepicker({
+                        locale: 'bs',
+                        format: 'DD.MM.YYYY'
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("Error pri dobavljanju rezervacije!!!");
+                    console.log(jqXHR);
+                    alert("Error pri dobavljanju rezervacije. Za detalje pogledajte konzolu.");
+                    console.log(JSON.stringify({ id: id }));
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,36 @@
+﻿@model EtnoSelo.App.Models.GradoviIndexVM
+
+<h2>Pregled država</h2>
+
+<table class="table">
+    <thead>
+    <th>Id</th>
+    <th>Naziv</th>
+    <th>Država</th>
+    <th>Akcija</th>
+    </thead>
+
+    <tbody>
+        @foreach (var x in Model.gradoviLista)
+        {
+            var tempDrzava = x.Drzava.Naziv.ToString();
+            <tr>
+
+                <td>@x.Id</td>
+                <td>@x.Naziv</td>
+                <td>@x.Drzava.Naziv</td>
+                <td>
+                    @Html.ActionLink("Uredi", "Uredi", new { Id = x.Id })
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<hr />
+<div class="btn btn-success">
+    @Html.ActionLink("Dodaj", "Dodaj")
+</div>

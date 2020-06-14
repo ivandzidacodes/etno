@@ -1,0 +1,82 @@
+﻿@model EtnoSelo.App.Models.KlijentModel
+<div class="panel panel-primary">
+    <div class="panel-heading">Detalji o klijentu</div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Ime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Ime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Prezime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Prezime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Telefon)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Telefon)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Adresa)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Adresa)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Grad)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Grad)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Drzava)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Drzava)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DatumRodjenja)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DatumRodjenja)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Aktivan)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Aktivan)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Nazad", "Index", new { }, new { @class = "btn btn-default" })
+    </p>
+</div>

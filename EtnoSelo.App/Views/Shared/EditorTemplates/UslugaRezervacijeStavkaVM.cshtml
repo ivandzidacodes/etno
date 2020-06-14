@@ -1,0 +1,47 @@
+﻿@model EtnoSelo.App.Models.UslugaRezervacijeStavkaVM
+
+<li class="list-group-item gap-sm form-tight">
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>@Html.DisplayFor(x => x.NazivUsluge)</h4>
+        </div>
+        @*<div class="col-xs-4">
+            <div class="form-group form-group-sm">
+                <label for="podsuma"></label>
+                @Html.LabelFor(x => x.TipNaplate)
+                <div class="form-control disabled">@Html.DisplayFor(x => x.TipNaplate)</div>
+            </div>
+        </div>*@
+        <div class="col-xs-3">
+            <div class="form-group form-group-sm" >
+                @Html.LabelFor(x => x.Cijena)
+                @Html.TextBoxFor(x => x.Cijena, new { @class = "form-control text-right" })
+                @Html.LabelFor(x => x.Cijena, "", new { @class = "text-danger", type = "number" })
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.Kolicina)
+                @Html.TextBoxFor(x => x.Kolicina, new { @class = "form-control text-right" })
+                @Html.LabelFor(x => x.Kolicina, "", new { @class = "text-danger", type = "number" })
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(x => x.PoreznaStopa)
+                @Html.TextBoxFor(x => x.PoreznaStopa, new { @class = "form-control text-right" })
+                @Html.LabelFor(x => x.PoreznaStopa, "", new { @class = "text-danger", type = "number" })
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="form-group form-group-sm">
+                <label for="podsuma"></label>
+                @Html.Label("Podsuma")
+                @Html.TextBox("Podsuma", 0, new { @class = "form-control disabled", type = "number", disabled = "disabled" })
+            </div>
+        </div>
+
+
+    </div>
+    
+</li>

@@ -1,0 +1,36 @@
+﻿@model EtnoSelo.App.Models.DrzavaUrediVM
+@{
+    ViewBag.Title = "Uredi";
+}
+
+<h2>Uredi</h2>
+
+@using (Html.BeginForm("Uredi"))
+{
+    @Html.HiddenFor(x => x.drzava.Id)
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.drzava.Naziv)
+                @Html.TextBoxFor(x => x.drzava.Naziv, new { @class = "form-control", placeholder = "Naziv države" })
+                @Html.ValidationMessageFor(x => x.drzava.Naziv)
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <input type="submit" value="Snimi" class="btn btn-success" />
+
+            @Html.ActionLink("Odustani", "Index", null, new { @class = "btn btn-danger", style = "margin-left:40px" })
+        </div>
+
+
+    </div>
+
+}

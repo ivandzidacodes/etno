@@ -1,0 +1,47 @@
+﻿@model EtnoSelo.App.Models.KorisniciIndexVM
+
+<h2>Pregled korisnika</h2>
+<div id="target">
+    <table class="table">
+        <thead>
+        <th>Id</th>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Korisničko ime</th>
+        <th>Email</th>
+        <th>Datum Rođenja</th>
+        <th>Adresa</th>
+        <th>Aktivan</th>
+        <th>Uredi</th>
+
+        </thead>
+
+        <tbody>
+            @foreach (var x in Model.listaKorisnika)
+            {
+                var tempAktivan = x.Aktivan ? "Da" : "Ne";
+                <tr>
+
+                    <td>@x.Id</td>
+                    <td>@x.Ime</td>
+                    <td>@x.Prezime</td>
+                    <td>@x.KorisnickoIme</td>
+                    <td>@x.Email</td>
+                    <td>@Html.DisplayFor(m => x.DatumRodjenja)</td>
+                    <td>@x.Adresa</td>
+                    <td>@Html.ActionLink(tempAktivan, "PromjeniStatus", new { Id = x.Id })</td>
+                    <td>
+                        @*@Html.ActionLink("Uredi","Uredi", new { Id = x.Id })*@
+                        @Ajax.ActionLink("Uredi", "Uredi", "Korisnici", new { Id = x.Id }, new AjaxOptions { UpdateTargetId = "target" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<hr />
+<div class="btn btn-success">
+    @Html.ActionLink("Dodaj", "Dodaj")
+</div>

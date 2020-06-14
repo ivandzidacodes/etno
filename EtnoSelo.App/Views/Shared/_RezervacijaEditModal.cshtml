@@ -1,0 +1,116 @@
+﻿@model EtnoSelo.App.Models.RezervacijaIzmjeniVM
+<!-- Modal -->
+<div id="modal-rezervacija" class="modal fade modal-editor" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Rezervacja</h4>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("Izmjeni", "Rezervacije", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(x => x.Id)
+
+
+                    <div class="row gap-sm">
+                        <div class="col-xs-6">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        @Html.Label("Rezervirao")<br />
+                                        <span style="font-size:2em">@Html.DisplayFor(x => x.Korisnik.Ime) @Html.DisplayFor(x => x.Korisnik.Prezime)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.Potvrdjena)<br />
+                                        <label class="switch">
+                                            @Html.CheckBoxFor(x => x.Potvrdjena)
+                                            <span class="slider rounded"></span>
+                                        </label>
+                                        @Html.ValidationMessageFor(x => x.Potvrdjena, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.DatumPotvrdjivanja)
+                                        @Html.TextBoxFor(x => x.DatumPotvrdjivanja, "{0:dd.MM.yyyy}", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(x => x.DatumPotvrdjivanja, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gap-sm">
+                       
+                            <div class="col-xs-9 col-sm-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x.JedinicaId)
+                                    @Html.DropDownListFor(x => x.JedinicaId, Model.Jedinice, "Izaberite", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.JedinicaId, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-xs-3 col-sm-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x.BrojOsoba)
+                                    @Html.TextBoxFor(x => x.BrojOsoba, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.BrojOsoba, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x.DatumDolaska)
+                                    @Html.TextBoxFor(x => x.DatumDolaska, "{0:dd.MM.yyyy}", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.DatumDolaska, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x.DatumOdlaska)
+                                    @Html.TextBoxFor(x => x.DatumOdlaska, "{0:dd.MM.yyyy}", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.DatumOdlaska, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        
+                        
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3>Usluge</h3>
+                            <ul class="list-group">
+                                @foreach (var usluga in Model.UslugeURezervaciji)
+                                {
+                                    @Html.EditorFor(x => x.UslugeURezervaciji)
+                                }
+                                <li class="list-group-item list-group-item-heading"><h3 class="text-success pull-right">Ukupno: 0,00</h3><div class="clearfix"></div></li>
+                            </ul>
+                           
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+

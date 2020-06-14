@@ -1,0 +1,99 @@
+﻿@model EtnoSelo.App.Models.KorisniciDodajVM
+@{
+    ViewBag.Title = "Dodaj";
+}
+
+<h2>Dodaj</h2>
+
+@using (Html.BeginForm("Dodaj"))
+{
+    @Html.HiddenFor(x=>x.GradId)
+    @Html.HiddenFor(x=>x.RolaId)
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                @Html.LabelFor(x => x.korisnik.Ime)
+                @Html.TextBoxFor(x => x.korisnik.Ime, new { @class = "form-control", placeholder = "Ime" })
+                @Html.ValidationMessageFor(x => x.korisnik.Ime)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.korisnik.Prezime)
+                @Html.TextBoxFor(x => x.korisnik.Prezime, new { @class = "form-control", placeholder = "Prezime" })
+                @Html.ValidationMessageFor(x => x.korisnik.Prezime)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.korisnik.Rola)
+                @Html.DropDownListFor(x => x.korisnik.RolaId, Model.listaRola, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.korisnik.KorisnickoIme)
+                @Html.TextBoxFor(x => x.korisnik.KorisnickoIme, new { @class = "form-control", placeholder = "Korisničko ime" })
+                @Html.ValidationMessageFor(x => x.korisnik.KorisnickoIme)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.korisnik.Lozinka)
+                @Html.PasswordFor(x => x.korisnik.Lozinka, new { @class = "form-control", placeholder = "Lozinka" })
+                @Html.ValidationMessageFor(x => x.korisnik.Lozinka)
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                @Html.LabelFor(x => x.korisnik.Email)
+                @Html.TextBoxFor(x => x.korisnik.Email, new { @class = "form-control", placeholder = "Email" })
+                @Html.ValidationMessageFor(x => x.korisnik.Email)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.korisnik.DatumRodjenja)
+                @Html.TextBoxFor(x => x.korisnik.DatumRodjenja, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.korisnik.DatumZaposlenja)
+                @Html.TextBoxFor(x => x.korisnik.DatumZaposlenja, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                @Html.LabelFor(x => x.korisnik.Grad)
+                @Html.DropDownListFor(x => x.korisnik.GradId, Model.listaGradova, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.korisnik.Adresa)
+                @Html.TextBoxFor(x => x.korisnik.Adresa, new { @class = "form-control", placeholder = "Adresa" })
+                @Html.ValidationMessageFor(x => x.korisnik.Adresa)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.korisnik.Telefon)
+                @Html.TextBoxFor(x => x.korisnik.Telefon, new { @class = "form-control", placeholder = "Telefon" })
+                @Html.ValidationMessageFor(x => x.korisnik.Telefon)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <input type="submit" value="Snimi" class="btn btn-success" />
+            
+            @Html.ActionLink("Odustani", "Index", null, new { @class="btn btn-danger", style="margin-left:40px"})
+        </div>
+
+
+    </div>
+}
+
+@section scripts
+            {
+    <script>
+                    $(document).ready(function () {
+                        $('#korisnik_DatumRodjenja, #korisnik_DatumZaposlenja').datetimepicker({
+                            format: 'DD.MM.YYYY'
+                        });
+                    });
+    </script>
+    }

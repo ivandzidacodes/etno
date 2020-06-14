@@ -1,0 +1,57 @@
+﻿@model IEnumerable<EtnoSelo.App.Models.PonudaModel>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Detalji o klijentu</div>
+    <div class="panel-body">
+        <p>
+            @Html.ActionLink("Kreiraj ponudu", "KreirajPonudu")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Naziv)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DatumKreiranja)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VaziOd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VaziDo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Popust)
+                </th>                
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Naziv)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DatumKreiranja)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VaziOd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VaziDo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Popust)
+                    </td>                    
+                    <td>
+                        @Html.ActionLink("Uredi", "Uredi", new { id = item.Id })  |
+                        @Html.ActionLink("Detalji", "Detalji", new { id = item.Id }) |
+                        @Html.ActionLink("Obrisi", "Obrisi", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

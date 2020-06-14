@@ -1,0 +1,11 @@
+﻿@{
+    if (User.IsInRole("Recepcionar"))
+    {
+        Layout = "~/Views/Shared/_RecepcionarLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+}

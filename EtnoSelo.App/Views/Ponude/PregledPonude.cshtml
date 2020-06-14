@@ -1,0 +1,166 @@
+﻿@model EtnoSelo.App.Models.PonudaModel
+<div class="panel panel-primary">
+    <div class="panel-heading">Pregled ponude</div>
+    <div class="panel-body">
+        <div>
+            <hr />
+            <div class="col-md-6">
+                <dl class="dl-horizontal">
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Naziv)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Naziv)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Popust)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Popust) %
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.VaziOd)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.VaziOd)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.VaziDo)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.VaziDo)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <hr />
+
+        <div>
+            <hr />
+            <h3>Stanbene Jedinice</h3>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PonudeJedinice.FirstOrDefault().TipStanbeneJedinice)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PonudeJedinice.FirstOrDefault().StanbenaJedinica)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PonudeJedinice.FirstOrDefault().CijenaBezPopusta)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PonudeJedinice.FirstOrDefault().CijenaSaPopustom)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.PonudeJedinice)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TipoviStanbenihJedinica.FirstOrDefault(x => x.Value == item.TipStanbeneJedinice.ToString()).Text)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StanbeneJedinice.FirstOrDefault(x => x.Id == item.StanbenaJedinica).Naziv)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CijenaBezPopusta)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CijenaSaPopustom)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+        <div>
+            <h3>Ukljucene aktivnosti</h3>
+            <table class="table">
+                @foreach (var item in Model.Aktivnosti)
+                {
+                    <tr>
+                        <td>
+                            - @Html.DisplayFor(modelItem => item.Aktivnosti.FirstOrDefault(x => x.Value == item.Aktivnost.ToString()).Text)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+        <div>
+            @if (Model.Slike != null && Model.Slike.Count() > 0 && (string)ViewData["PreusmjeriNa"] == "KreirajPonudu")
+            {
+                <h3>Slike:</h3>
+                <ul>
+                    @foreach (var item in Model.Slike)
+                    {
+                        <li>@item.FileName</li>
+                    }
+                </ul>
+            }
+            @if ((string)ViewData["PreusmjeriNa"] != "KreirajPonudu")
+            {
+                <h3>Slike:</h3>
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" style="max-width: 200px; max-height: 200px; margin: 20px;">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        @foreach (var item in Model.NaziviSlika)
+                        {
+                            <div class="item @(item == Model.NaziviSlika[0] ? " active" : "")">
+                                <img class="pregledSlikeImg" style="max-width: 200px; max-height: 200px;" src="@($"{Request.Url.Scheme}://{Request.Url.Authority}/Slike/Index?ponudaId={Model.Id}&naziv={item}")" alt="Chicago">
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            }
+        </div>
+        <p>
+            @Html.ActionLink("Nazad", (string)ViewData["PreusmjeriNa"], new { kreirajNovu = false }, new { @class = "btn btn-default" }) 
+
+            @if ((string)ViewData["PreusmjeriNa"] == "KreirajPonudu")
+            {
+                @Html.ActionLink("Potvrdi", "Snimi", new { }, new { @class = "btn btn-default" })
+            }
+        </p>
+    </div>
+</div>
+
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Zatvori</span></button>
+                <h4 class="modal-title" id="myModalLabel">Pregled slike</h4>
+            </div>
+            <div class="modal-body">
+                <img src="" id="imagepreview" style="width: 400px; height: 264px;">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+            </div>
+        </div>
+    </div>
+</div>

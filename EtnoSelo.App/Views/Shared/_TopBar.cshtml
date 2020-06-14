@@ -1,0 +1,55 @@
+﻿<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+                <span>Etno</span><span>Selo</span>
+            </a>
+           @* @Html.ActionLink("etnoSelo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+        </div>
+        <div class="navbar-collapse collapse">
+
+            @if (!string.IsNullOrWhiteSpace(HttpContext.Current.User?.Identity?.Name))
+            {
+                <ul class="nav navbar-nav">
+                    @if (HttpContext.Current.User.IsInRole("Menadzer"))
+                    {
+                        <li>@Html.ActionLink("Klijenti", "Index", "PregledKlijenata")</li>
+                            <li>@Html.ActionLink("Ponude", "Index", "Ponude")</li>
+                            <li class="dropdown">
+                                <a href="#" role="button" data-toggle="dropdown">Izvjestaji</a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Jedinice", "Jedinice", "Izvjestaji")</li>
+                                    <li>@Html.ActionLink("Ponude", "Ponude", "Izvjestaji")</li>
+                                    <li>@Html.ActionLink("Rezervacije", "Rezervacije", "Izvjestaji")</li>
+                                    <li>@Html.ActionLink("Usluge", "Usluge", "Izvjestaji")</li>
+                                </ul>
+                            </li>
+                    }
+                    @if (HttpContext.Current.User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Korisnici", "Index", "Korisnici")</li>
+                            <li>@Html.ActionLink("Gradovi", "Index", "Gradovi")</li>
+                                <li>@Html.ActionLink("Države", "Index", "Drzave")</li>
+                                <li class="dropdown">
+                                    <a href="#" role="button" data-toggle="dropdown">Izvjestaji</a>
+                                    <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink("Novi korisnici", "NoviKorisnici", "Izvjestaji")</li>
+
+                                    </ul>
+                                </li>
+                    }
+                </ul>
+                    @Html.Partial("_LoginPartial")
+                    @*<ul class="nav navbar-nav navbar-right">
+                            <li>@Html.ActionLink("Odjava", "Odjava", "Login")</li>
+                        </ul>*@
+            }
+        </div>
+    </div>
+</div>
+
